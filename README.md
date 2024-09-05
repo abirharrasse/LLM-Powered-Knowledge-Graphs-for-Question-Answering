@@ -147,7 +147,7 @@ for idx, fact in enumerate(trues):
     print(f"The truthness of the fact --{fact}-- was asserted using paragraph -{paragraph_ind}-.")
 ```
 The following is an example of the output:
-bash```
+
 the truthness of the fact --- Martin Luther King Jr was named Michael King at birth-- was asserted using paragraph -0- of the paragraphs list
 the truthness of the fact --- Martin Luther King Jr was an African-American pastor-- was asserted using paragraph -0- of the paragraphs list
 the truthness of the fact --- He was inspired by Mahatma Gandhi-- was asserted using paragraph -0- of the paragraphs list
@@ -155,5 +155,5 @@ the truthness of the fact --- He started a civil rights movement in the USA-- wa
 the truthness of the fact --- He led movements in Albany-- was asserted using paragraph -1- of the paragraphs list
 the truthness of the fact --- He led movements in Birmingham-- was asserted using paragraph -1- of the paragraphs list
 the truthness of the fact --- He was killed before he turned 40-- was asserted using paragraph -2- of the paragraphs list
-the truthness of the fact --- He was awarded the Nobel Peace Prize-- was asserted using paragraph -2- of the paragraphs list```
+the truthness of the fact --- He was awarded the Nobel Peace Prize-- was asserted using paragraph -2- of the paragraphs list
 

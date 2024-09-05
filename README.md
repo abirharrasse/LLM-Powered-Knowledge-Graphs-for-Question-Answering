@@ -24,7 +24,7 @@ In this project, we investigate methods for leveraging LLMs to construct Knowled
 This section details the normal approach for extracting facts from the entire context using LLMs to build KGs. Before the extraction, we go through a first pre-processing step: chunking and fact extraction. The context is divided into chunks and facts are extracted individually from each chunk before being integrated into the KG. This method aims to improve precision by focusing on smaller, more manageable text units.
 
 We use the `breakdown_answer` function to divide our text into a list of facts.  Then we use the following prompt to extract the Knowledge Graph:
-```bash
+```python
 prompt = ChatPromptTemplate.from_messages(
         [(
           "system",prompting
@@ -43,7 +43,7 @@ The full knowledge graph extracted from the first page of `mlk.pdf` is in `outpu
 ## Effect of Few-Shot Prompting
 Few-shot prompting is critical in improving the precision of KG extraction. This section analyzes the effect of providing relevant examples in the prompt to guide the LLM's fact extraction process. Experiments compare results with and without few-shot prompting to assess the impact on KG accuracy.
 We start by building our few_shots examples. First, we build a list of facts extracted from random wikipedia pages. This is an example:
-```bash
+```python
 abraham_lincoln_facts = [
     "Abraham Lincoln served as the 16th President of the United States, from 1861 to 1865.",
     "He led the country through its Civil War, preserved the Union, and ended slavery with the Emancipation Proclamation.",
@@ -77,7 +77,7 @@ LLMs like Llama2 and Mistral often face challenges when parsing generated output
 This section explores the trade-offs between using vector databases and traditional KGs for answering questions. We compare their respective advantages in terms of retrieval speed, answer accuracy, and scalability when used for QA tasks.
 We use for this purpose the [SQUAD dataset](https://huggingface.co/datasets/rajpurkar/squad). First, we query both the database and the knowledge graph to retrieve potential answers. These answers, along with a baseline answer, are then embedded using the TF-IDF vectorizer. To evaluate the similarity between each retrieved answer and the baseline, we compute the cosine similarity between their respective embeddings.
 
-```bash
+```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -106,7 +106,7 @@ print(similarity_score2, similarity_score1)
 ## Source Tracking in QA
 In addition to providing answers, we also implement a method for tracing the paragraph or section of the original context that provided the extracted information. This bonus feature enhances transparency by linking each fact to its source within the input text.
 First, we divide the original context text into paragraphs: 
-```bash
+```python
 def divide_into_paragraphs(text, lines_per_paragraph=4):
     lines = text.split('.\n')
     paragraphs = []
@@ -127,7 +127,7 @@ def divide_into_paragraphs(text, lines_per_paragraph=4):
     return paragraphs
 ```
 Then perform a similarity measure:
-```bash
+```python
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
@@ -147,7 +147,7 @@ for idx, fact in enumerate(trues):
     print(f"The truthness of the fact --{fact}-- was asserted using paragraph -{paragraph_ind}-.")
 ```
 The following is an example of the output:
-
+```
 the truthness of the fact --- Martin Luther King Jr was named Michael King at birth-- was asserted using paragraph -0- of the paragraphs list
 the truthness of the fact --- Martin Luther King Jr was an African-American pastor-- was asserted using paragraph -0- of the paragraphs list
 the truthness of the fact --- He was inspired by Mahatma Gandhi-- was asserted using paragraph -0- of the paragraphs list
@@ -157,3 +157,4 @@ the truthness of the fact --- He led movements in Birmingham-- was asserted usin
 the truthness of the fact --- He was killed before he turned 40-- was asserted using paragraph -2- of the paragraphs list
 the truthness of the fact --- He was awarded the Nobel Peace Prize-- was asserted using paragraph -2- of the paragraphs list
 
+```

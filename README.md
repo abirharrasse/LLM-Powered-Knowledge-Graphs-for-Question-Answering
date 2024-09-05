@@ -38,6 +38,10 @@ prompt = ChatPromptTemplate.from_messages(
 ```
 The Knowledge Graph's extraction and the facts extraction's codes are in the `base_query.py` file. `Querying.ipynb` contains an example of how to run the KG extraction and how to query it for answers. 
 
+<p align="center">
+  <img src="images/architecture.png" alt="Architectures Diagram" width="90%" />
+</p>
+
 ## Effect of Few-Shot Prompting
 Few-shot prompting is critical in improving the precision of KG extraction. This section analyzes the effect of providing relevant examples in the prompt to guide the LLM's fact extraction process. Experiments compare results with and without few-shot prompting to assess the impact on KG accuracy.
 

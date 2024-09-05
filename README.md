@@ -1,2 +1,2 @@
-# KG-Generation-with-LLMs
+# LLM-Powered Knowledge Graphs for Question Answering
 aa

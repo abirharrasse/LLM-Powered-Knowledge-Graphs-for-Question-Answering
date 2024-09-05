@@ -39,7 +39,7 @@ prompt = ChatPromptTemplate.from_messages(
 The Knowledge Graph's extraction and the facts extraction's codes are in the `base_query.py` file. `Querying.ipynb` contains an example of how to run the KG extraction and how to query it for answers. 
 
 <p align="center">
-  <img src="documents/output.png" alt="KG_output" />
+  <img src="documents/snapshot.png" alt="KG_output" />
 </p>
 
 ## Effect of Few-Shot Prompting

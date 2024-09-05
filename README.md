@@ -75,6 +75,33 @@ LLMs like Llama2 and Mistral often face challenges when parsing generated output
 
 ## Vector Databases vs KGs for QA
 This section explores the trade-offs between using vector databases and traditional KGs for answering questions. We compare their respective advantages in terms of retrieval speed, answer accuracy, and scalability when used for QA tasks.
+We use for this purpose the [SQUAD dataset](https://huggingface.co/datasets/rajpurkar/squad). First, we query both the database and the knowledge graph to retrieve potential answers. These answers, along with a baseline answer, are then embedded using the TF-IDF vectorizer. To evaluate the similarity between each retrieved answer and the baseline, we compute the cosine similarity between their respective embeddings.
+
+```bash
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+def calculate_similarity(sentence1, sentence2):
+    # Initialize TfidfVectorizer
+    vectorizer = TfidfVectorizer()
+
+    # Fit and transform the sentences
+    tfidf_matrix = vectorizer.fit_transform([sentence1, sentence2])
+
+    # Calculate cosine similarity
+    cosine_sim = cosine_similarity(tfidf_matrix[0], tfidf_matrix[1])
+
+    return cosine_sim[0][0]
+
+# Example sentences
+sentence1 = answers[0][0]
+sentence2 = answers[0][2]
+sentence3 = answers[0][1]
+# Calculate similarity
+similarity_score1 = calculate_similarity(sentence1, sentence2)
+similarity_score2 = calculate_similarity(sentence1, sentence3)
+print(similarity_score2, similarity_score1)
+```
 
 ## Source Tracking in QA
 In addition to providing answers, we also implement a method for tracing the paragraph or section of the original context that provided the extracted information. This bonus feature enhances transparency by linking each fact to its source within the input text.

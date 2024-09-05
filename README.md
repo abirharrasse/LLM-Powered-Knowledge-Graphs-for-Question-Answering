@@ -44,7 +44,21 @@ The Knowledge Graph's extraction and the facts extraction's codes are in the `ba
 The full knowledge graph extracted from the first page of `mlk.pdf` is in `output.png`.
 ## Effect of Few-Shot Prompting
 Few-shot prompting is critical in improving the precision of KG extraction. This section analyzes the effect of providing relevant examples in the prompt to guide the LLM's fact extraction process. Experiments compare results with and without few-shot prompting to assess the impact on KG accuracy.
-
+We start by building our few_shots examples. First, we build a list of facts extracted from random wikipedia pages. This is an example:
+```bash
+abraham_lincoln_facts = [
+    "Abraham Lincoln served as the 16th President of the United States, from 1861 to 1865.",
+    "He led the country through its Civil War, preserved the Union, and ended slavery with the Emancipation Proclamation.",
+    "Lincoln delivered the Gettysburg Address on November 19, 1863, one of the most famous speeches in American history.",
+    "He was born in a log cabin in Hardin County, Kentucky, on February 12, 1809, and grew up in a poor family.",
+    "Lincoln was largely self-educated and became a successful lawyer before entering politics.",
+    "He was assassinated by John Wilkes Booth at Ford's Theatre in Washington, D.C., on April 14, 1865.",
+    "Lincoln's leadership and statesmanship have made him one of the most revered presidents in U.S. history.",
+    "He is often referred to as 'Honest Abe' due to his reputation for integrity and honesty.",
+    "Abraham Lincoln was 6 feet 4 inches tall, making him the tallest U.S. president."
+]
+```
+We then call the `get_extraction_chain` on it. More details are in: 
 ## Fine-Tuning for KG Formatting
 LLMs not predisposed to outputting facts in a structured KG format often require fine-tuning. Here, we detail the methods used to fine-tune models so they can generate well-structured KGs. This includes adjusting the LLM's output style to match KG requirements and formatting.
 

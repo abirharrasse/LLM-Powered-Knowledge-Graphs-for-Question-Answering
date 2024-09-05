@@ -23,11 +23,20 @@ In this project, we investigate methods for leveraging LLMs to construct Knowled
 
 ## KG Construction Approaches
 
-### Contextual KG Construction
-This section details the normal approach for extracting facts from the entire context using LLMs to build KGs. LLMs are applied directly to the context to identify and organize entities and their relationships.
+### Contextual KG Construction: Chunking and Fact Extraction
+This section details the normal approach for extracting facts from the entire context using LLMs to build KGs. Before the extraction, we go through a first pre-processing step: chunking and fact extraction. The context is divided into chunks and facts are extracted individually from each chunk before being integrated into the KG. This method aims to improve precision by focusing on smaller, more manageable text units.
 
-### Chunking and Fact Extraction
-Here, we describe a more fine-grained approach where the context is divided into chunks. Facts are extracted individually from each chunk before being integrated into the KG. This method aims to improve precision by focusing on smaller, more manageable text units.
+We use the `breakdown_answer` function to divide our text into a list of facts.  Then we use the following prompt to extract the Knowledge Graph:
+```bash
+prompt = ChatPromptTemplate.from_messages(
+        [(
+          "system",prompting
+),
+            ("human",  "Use the given format to extract information from the following list of facts. If there are any dates or numbers, do not forget them in the nodes and relationships: {input}"),
+            ("human","Tip: Make sure to answer in the correct format. Don't forget the numbers in your extraction of nodes and relationships. Include them as relationships, not proprieties"),
+        ])
+```
+
 
 ## Effect of Few-Shot Prompting
 Few-shot prompting is critical in improving the precision of KG extraction. This section analyzes the effect of providing relevant examples in the prompt to guide the LLM's fact extraction process. Experiments compare results with and without few-shot prompting to assess the impact on KG accuracy.

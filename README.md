@@ -21,9 +21,8 @@ This repository explores various strategies for building Knowledge Graphs (KGs) 
 ## Introduction
 In this project, we investigate methods for leveraging LLMs to construct Knowledge Graphs (KGs) and perform accurate Question Answering (QA). The goal is to refine KG extraction techniques while evaluating the trade-offs between KGs and vector databases for storing and querying knowledge. We also explore approaches to track the origin of facts within the context used for KG creation.
 
-## KG Construction Approaches
 
-### Contextual KG Construction: Chunking and Fact Extraction
+## Contextual KG Construction: Chunking and Fact Extraction
 This section details the normal approach for extracting facts from the entire context using LLMs to build KGs. Before the extraction, we go through a first pre-processing step: chunking and fact extraction. The context is divided into chunks and facts are extracted individually from each chunk before being integrated into the KG. This method aims to improve precision by focusing on smaller, more manageable text units.
 
 We use the `breakdown_answer` function to divide our text into a list of facts.  Then we use the following prompt to extract the Knowledge Graph:
@@ -42,6 +41,7 @@ The Knowledge Graph's extraction and the facts extraction's codes are in the `ba
   <img src="documents/snapshot.png" alt="KG_output" />
 </p>
 
+The full knowledge graph extracted from the first page of `mlk.pdf` is in `output.png`.
 ## Effect of Few-Shot Prompting
 Few-shot prompting is critical in improving the precision of KG extraction. This section analyzes the effect of providing relevant examples in the prompt to guide the LLM's fact extraction process. Experiments compare results with and without few-shot prompting to assess the impact on KG accuracy.
 

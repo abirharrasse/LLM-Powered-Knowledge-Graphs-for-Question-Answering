@@ -71,7 +71,7 @@ The following is a comparison showing how the few_shots prompting improves the k
 
 
 ## Fine-Tuning for KG Formatting
-LLMs not predisposed to outputting facts in a structured KG format often require fine-tuning. Here, we detail the methods used to fine-tune models so they can generate well-structured KGs. This includes adjusting the LLM's output style to match KG requirements and formatting.
+LLMs like Llama2 and Mistral often face challenges when parsing generated outputs into a structured Knowledge Graph (KG) format, such as nodes and relationships. To address this issue, we fine-tuned these models using a synthetic dataset consisting of 200 examples, generated with GPT-4. This fine-tuning significantly improved their ability to format outputs into a structured KG format.
 
 ## Vector Databases vs KGs for QA
 This section explores the trade-offs between using vector databases and traditional KGs for answering questions. We compare their respective advantages in terms of retrieval speed, answer accuracy, and scalability when used for QA tasks.

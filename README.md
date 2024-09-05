@@ -4,7 +4,7 @@ This repository explores various strategies for building Knowledge Graphs (KGs) 
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [KG Construction Approaches](#kg-construction-approaches)
+2. [Contextual KG Construction: Chunking and Fact Extraction](#contextual_kg_construction_:_chunking_and_fact_extraction)
    - [Contextual KG Construction](#contextual-kg-construction)
    - [Chunking and Fact Extraction](#chunking-and-fact-extraction)
 3. [Effect of Few-Shot Prompting](#effect-of-few-shot-prompting)
@@ -59,6 +59,18 @@ abraham_lincoln_facts = [
 ]
 ```
 We then call the `get_extraction_chain` on it. More details are in: `few_shots_prompts.py`.
+The following is a comparison showing how the few_shots prompting improves the knowledge graph extraction:
+| Model               | # Nodes | # Relationships | Latency (s) | # API Calls |
+|---------------------|---------|-----------------|-------------|-------------|
+| GPT4 zero-shot       | 19      | 17              | 45.59       | 2           |
+| GPT4 1-shot          | 26      | 26              | 49.36       | 2           |
+| GPT4 2-shot          | 27      | 22              | 51.65       | 2           |
+| GPT4 3-shot          | 17      | 17              | 49.61       | 2           |
+| GPT3.5 zero-shot     | 15      | 11              | 37.5        | 2           |
+| GPT3.5 1-shot        | 22      | 18              | 16.95       | 2           |
+| GPT3.5 2-shot        | 14      | 12              | 16.20       | 2           |
+| GPT3.5 3-shot        | 24      | 22              | 18.35       | 2           |
+
 ## Fine-Tuning for KG Formatting
 LLMs not predisposed to outputting facts in a structured KG format often require fine-tuning. Here, we detail the methods used to fine-tune models so they can generate well-structured KGs. This includes adjusting the LLM's output style to match KG requirements and formatting.
 

@@ -105,6 +105,72 @@ print(similarity_score2, similarity_score1)
 
 ## Source Tracking in QA
 In addition to providing answers, we also implement a method for tracing the paragraph or section of the original context that provided the extracted information. This bonus feature enhances transparency by linking each fact to its source within the input text.
+First, we divide the original context text into paragraphs: 
+```bash
+def divide_into_paragraphs(text, lines_per_paragraph=4):
+    lines = text.split('.\n')
+    paragraphs = []
+    current_paragraph = []
+
+    for line in lines:
+        current_paragraph.append(line + '.')
+        if len(current_paragraph) == lines_per_paragraph:
+            paragraphs.append('\n'.join(current_paragraph))
+            current_paragraph = []
+
+    if current_paragraph:
+        if len(lines) % lines_per_paragraph < lines_per_paragraph // 2 + 1 and paragraphs:
+            paragraphs[-1] += '\n' + '\n'.join(current_paragraph)
+        else:
+            paragraphs.append('\n'.join(current_paragraph))
+
+    return paragraphs
+```
+Then perform a similarity measure:
+```bash
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+
+# Concatenate true facts and paragraphs
+paragraphs = divide_into_paragraphs(user_context)
+trues = true_facts(answer_chunks, fact_statuses)
+list_text = trues + paragraphs
+
+# Compute TF-IDF vectors for the texts
+tfidf_matrix = TfidfVectorizer().fit_transform(list_text)
+
+# Calculate cosine similarity for each true fact against the paragraphs
+for idx, fact in enumerate(trues):
+    similarity_scores = cosine_similarity(tfidf_matrix[idx], tfidf_matrix[len(trues):])
+    paragraph_ind = np.argmax(similarity_scores)
+    print(f"The truthness of the fact --{fact}-- was asserted using paragraph -{paragraph_ind}-.")
+```
+The following is an example of the output:
+
+- **The truthness of the fact** --- Martin Luther King Jr. was named Michael King at birth  
+  **Was asserted using paragraph** -0- **of the paragraphs list**
+
+- **The truthness of the fact** --- Martin Luther King Jr. was an African-American pastor  
+  **Was asserted using paragraph** -0- **of the paragraphs list**
+
+- **The truthness of the fact** --- He was inspired by Mahatma Gandhi  
+  **Was asserted using paragraph** -0- **of the paragraphs list**
+
+- **The truthness of the fact** --- He started a civil rights movement in the USA  
+  **Was asserted using paragraph** -1- **of the paragraphs list**
+
+- **The truthness of the fact** --- He led movements in Albany  
+  **Was asserted using paragraph** -1- **of the paragraphs list**
+
+- **The truthness of the fact** --- He led movements in Birmingham  
+  **Was asserted using paragraph** -1- **of the paragraphs list**
+
+- **The truthness of the fact** --- He was killed before he turned 40  
+  **Was asserted using paragraph** -2- **of the paragraphs list**
+
+- **The truthness of the fact** --- He was awarded the Nobel Peace Prize  
+  **Was asserted using paragraph** -2- **of the paragraphs list**
 
 ## How to Use
 [Instructions on how to interact with the repository’s code and models for KG construction and QA.]

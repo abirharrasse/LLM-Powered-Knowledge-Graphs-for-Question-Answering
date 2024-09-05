@@ -4,7 +4,7 @@ This repository explores various strategies for building Knowledge Graphs (KGs) 
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Contextual KG Construction: Chunking and Fact Extraction](#contextual_kg_construction_:_chunking_and_fact_extraction)
+2. [Contextual KG Construction: Chunking and Fact Extraction](#contextual-kg-construction-chunking-and-fact-extraction)
    - [Contextual KG Construction](#contextual-kg-construction)
    - [Chunking and Fact Extraction](#chunking-and-fact-extraction)
 3. [Effect of Few-Shot Prompting](#effect-of-few-shot-prompting)

@@ -58,7 +58,7 @@ abraham_lincoln_facts = [
     "Abraham Lincoln was 6 feet 4 inches tall, making him the tallest U.S. president."
 ]
 ```
-We then call the `get_extraction_chain` on it. More details are in: 
+We then call the `get_extraction_chain` on it. More details are in: `few_shots_prompts.py`.
 ## Fine-Tuning for KG Formatting
 LLMs not predisposed to outputting facts in a structured KG format often require fine-tuning. Here, we detail the methods used to fine-tune models so they can generate well-structured KGs. This includes adjusting the LLM's output style to match KG requirements and formatting.
 
